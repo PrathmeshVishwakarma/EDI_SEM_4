@@ -1010,16 +1010,22 @@ def motor_identify():
 @app.route('/api/explain')
 def explain_prediction():
     """Return SHAP feature importance explanations for latest prediction."""
+    feats = None
     raw = plot_buffer[-128:] if plot_buffer else []
-    if len(raw) < 50:
-        return jsonify({'status': 'insufficient_data'})
-    baseline = float(np.mean(raw))
-    feats = extract_features(raw, baseline)
-    explanations = motor_classifier.explain(feats, MotorClassifier.feature_names())
-    return jsonify({
-        'explanations': explanations,
-        'status': 'active',
-    })
+    if len(raw) >= 50:
+        baseline = float(np.mean(raw))
+        feats = extract_features(raw, baseline)
+    elif state.get('training_features') and len(state['training_features']) > 0:
+        feats = state['training_features'][-1]
+    elif state.get('retrain_buffer') and len(state['retrain_buffer']) > 0:
+        feats = state['retrain_buffer'][-1]
+    if feats is None or not motor_classifier.trained:
+        return jsonify({'status': 'unavailable', 'reason': 'Need vibration data and a trained motor classifier'})
+    try:
+        explanations = motor_classifier.explain(feats, MotorClassifier.feature_names())
+        return jsonify({'explanations': explanations, 'status': 'active'})
+    except Exception as e:
+        return jsonify({'status': 'error', 'error': str(e)})
 
 
 # ─────────────────────────────────────────────────────────────

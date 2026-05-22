@@ -842,6 +842,9 @@ el.refreshModels.addEventListener('click', loadModels);
   log('MotorSense initialized', 'info');
 
 
+  // Load XAI on init if data available
+  fetchXAI();
+
   // Load RMS trend from localStorage
   const savedTrend = loadTrendData()
   if (savedTrend.length > 0 && trendChart) {
@@ -852,3 +855,55 @@ el.refreshModels.addEventListener('click', loadModels);
     document.getElementById('trend-count').textContent = pts.length
   }
 })();
+
+// ─────────────────────────────────────────────────────────
+//  XAI — SHAP Feature Importance
+// ─────────────────────────────────────────────────────────
+async function fetchXAI() {
+  try {
+    const res = await api('/api/explain');
+    if (!res || res.status !== 'active' || !res.explanations) {
+      document.getElementById('xai-card').style.display = 'none';
+      return;
+    }
+    const card = document.getElementById('xai-card');
+    const content = document.getElementById('xai-content');
+    card.style.display = 'block';
+
+    let html = '';
+    for (const [target, feats] of Object.entries(res.explanations)) {
+      html += `<div style="margin-bottom:8px;"><strong style="text-transform:capitalize;font-size:12px;">${target}</strong>`;
+      const maxAbs = Math.max(...feats.map(f => Math.abs(f.importance)), 0.001);
+      html += '<div style="margin-top:4px;">';
+      for (const f of feats) {
+        const pct = (Math.abs(f.importance) / maxAbs) * 100;
+        const barColor = f.importance >= 0 ? 'var(--accent,#00d4aa)' : 'var(--danger,#ef4444)';
+        const label = f.importance >= 0 ? 'pushes ↑' : 'pushes ↓';
+        html += `<div style="display:flex;align-items:center;gap:6px;margin:2px 0;font-size:11px;">
+          <span style="width:80px;text-align:right;flex-shrink:0;color:var(--text-dim,#6B7280);">${f.feature}</span>
+          <div style="flex:1;height:14px;background:var(--bg-dark,#0A0E17);border-radius:3px;overflow:hidden;">
+            <div style="width:${pct}%;height:100%;background:${barColor};border-radius:3px;transition:width 0.3s;"></div>
+          </div>
+          <span style="width:60px;font-size:10px;color:var(--text-dim,#6B7280);">${f.importance.toFixed(4)} ${label}</span>
+        </div>`;
+      }
+      html += '</div></div>';
+    }
+    content.innerHTML = html;
+  } catch {
+    document.getElementById('xai-card').style.display = 'none';
+  }
+}
+
+// Refresh XAI on button click
+const refreshXaiBtn = document.getElementById('refresh-xai-btn');
+if (refreshXaiBtn) {
+  refreshXaiBtn.addEventListener('click', fetchXAI);
+}
+
+// Auto-refresh XAI on sensor data
+socket.on('sensor_data', () => {
+  if (document.getElementById('xai-card').style.display !== 'none') {
+    fetchXAI();
+  }
+});

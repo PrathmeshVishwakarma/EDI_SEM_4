@@ -21,7 +21,8 @@ sys.path.insert(0, BASE_DIR)
 
 from generate_synthetic_data import (
     generate_companies_dataset, generate_fault_dataset,
-    normal_vibration, unbalanced_vibration, bearing_fault_vibration
+    normal_vibration, unbalanced_vibration, bearing_fault_vibration,
+    misalignment_vibration
 )
 from feature_pipeline import extract_features
 from ml_models import EnsembleAnomalyModel, CompanyClassifier
@@ -383,6 +384,226 @@ def benchmark_data_scaling(max_samples=100, seed=42):
 
 
 # ═══════════════════════════════════════════════════════════════
+#  Item 8: SoTA Model Comparison — 10+ Classifiers
+# ═══════════════════════════════════════════════════════════════
+def _train_and_eval(clf, X_tr, y_tr, X_te, y_te):
+    """Train classifier and return accuracy + F1."""
+    clf.fit(X_tr, y_tr)
+    preds = clf.predict(X_te)
+    acc = accuracy_score(y_te, preds)
+    f1 = f1_score(y_te, preds, average='weighted')
+    return acc, f1
+
+
+def benchmark_sota(samples_per_company=80, n_companies=N_COMPANIES, seed=42):
+    """Compare 10+ classifiers across all overlap levels.
+
+    Methods span: linear (LR), instance-based (KNN), kernel (SVC),
+    tree ensembles (RF, ET, GB), neural (MLP), density (OC-SVM),
+    and the proposed ensemble (CompanyClassifier).
+    """
+    log.info("=" * 60)
+    log.info("ITEM 8: SoTA Classifier Comparison (10 methods)")
+    log.info("=" * 60)
+
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.neighbors import KNeighborsClassifier
+    from sklearn.svm import SVC
+    from sklearn.tree import DecisionTreeClassifier
+    from sklearn.ensemble import (
+        RandomForestClassifier, ExtraTreesClassifier, GradientBoostingClassifier
+    )
+    from sklearn.neural_network import MLPClassifier
+
+    classifiers = {
+        'LogisticRegression': LogisticRegression(max_iter=500, random_state=42),
+        'KNN (k=5)': KNeighborsClassifier(n_neighbors=5),
+        'KNN (k=21)': KNeighborsClassifier(n_neighbors=21),
+        'SVC (rbf)': SVC(kernel='rbf', gamma='scale', random_state=42),
+        'DecisionTree': DecisionTreeClassifier(max_depth=20, random_state=42),
+        'RandomForest': RandomForestClassifier(n_estimators=200, random_state=42),
+        'ExtraTrees': ExtraTreesClassifier(n_estimators=200, random_state=42),
+        'GradientBoosting': GradientBoostingClassifier(n_estimators=200, random_state=42),
+        'MLP (64,32)': MLPClassifier(hidden_layer_sizes=(64, 32), max_iter=500, random_state=42),
+        'MLP (128,64,32)': MLPClassifier(hidden_layer_sizes=(128, 64, 32), max_iter=500, random_state=42),
+        'Ours (RF+IF+SVM)': None,  # filled below
+    }
+    # Also add OC-SVM one-vs-rest as baseline
+    classifiers['OC-SVM (1vsRest)'] = None
+
+    all_rows = []
+    scaler = StandardScaler()
+
+    for overlap in OVERLAP_VALUES:
+        X, y, companies = generate_companies_dataset(
+            n_companies=n_companies, samples_per_company=samples_per_company,
+            seed=seed, overlap=overlap)
+        X_tr, X_te, y_tr, y_te = train_test_split(
+            X, y, test_size=0.3, random_state=seed)
+
+        X_tr_s = scaler.fit_transform(X_tr)
+        X_te_s = scaler.transform(X_te)
+
+        for name, clf in list(classifiers.items()):
+            if name == 'Ours (RF+IF+SVM)':
+                obj = CompanyClassifier(feature_dim=FEATURE_DIM, num_companies=len(companies))
+                obj.train(X_tr, y_tr, company_names=companies, noise_scale=overlap * 0.3)
+                preds = np.array([obj.predict(x)[0] for x in X_te])
+                acc = accuracy_score(y_te, preds)
+                f1 = f1_score(y_te, preds, average='weighted')
+            elif name == 'OC-SVM (1vsRest)':
+                preds = []
+                for x in X_te:
+                    scores = []
+                    for ci in range(len(companies)):
+                        mask = y_tr == ci
+                        if np.sum(mask) < 5:
+                            scores.append(0)
+                            continue
+                        svm = OneClassSVM(kernel='rbf', nu=0.05, gamma='scale')
+                        svm.fit(X_tr_s[mask])
+                        score = svm.score_samples(x.reshape(1, -1))[0]
+                        scores.append(score)
+                    preds.append(int(np.argmax(scores)))
+                preds = np.array(preds)
+                acc = accuracy_score(y_te, preds)
+                f1 = f1_score(y_te, preds, average='weighted')
+            else:
+                acc, f1 = _train_and_eval(clf, X_tr_s, y_tr, X_te_s, y_te)
+
+            all_rows.append({
+                'overlap': overlap,
+                'method': name,
+                'accuracy': round(acc, 4),
+                'f1': round(f1, 4),
+            })
+
+        log.info(f"  --- overlap={overlap:.1f} ---")
+
+    # Summary: best per overlap
+    log.info("\n  Best method per overlap level:")
+    for ov in OVERLAP_VALUES:
+        ov_rows = [r for r in all_rows if r['overlap'] == ov]
+        best = max(ov_rows, key=lambda r: r['accuracy'])
+        log.info(f"    overlap={ov:.1f}: {best['method']} (acc={best['accuracy']:.4f})")
+
+    return {'sota': all_rows}
+
+
+# ═══════════════════════════════════════════════════════════════
+#  Item 9: Anomaly Detection Benchmark — 6 Methods
+# ═══════════════════════════════════════════════════════════════
+def benchmark_anomaly_detection(seed=42):
+    """Compare 6 anomaly detection methods on synthetic normal vs fault data."""
+    log.info("=" * 60)
+    log.info("ITEM 9: Anomaly Detection — 6 Methods")
+    log.info("=" * 60)
+
+    from sklearn.neighbors import LocalOutlierFactor
+    from sklearn.covariance import EllipticEnvelope
+    from sklearn.decomposition import PCA
+    from sklearn.neural_network import MLPRegressor
+    from sklearn.ensemble import IsolationForest
+    from sklearn.svm import OneClassSVM
+
+    # Generate: normal vs fault data
+    rng = np.random.RandomState(seed)
+    window_size = 128
+    fault_types = ['unbalanced', 'bearing', 'misalignment']
+    fault_gens = [unbalanced_vibration, bearing_fault_vibration, misalignment_vibration]
+
+    all_results = []
+
+    for fault_name, fault_gen in zip(fault_types, fault_gens):
+        normal_feats = []
+        fault_feats = []
+        for _ in range(40):
+            raw_n = normal_vibration(3.0, rpm=1500 + rng.randint(-200, 200), noise_level=0.05)
+            raw_f = fault_gen(3.0, rpm=1500 + rng.randint(-200, 200))
+            for start in range(0, len(raw_n) - window_size, window_size // 2):
+                chunk = raw_n[start:start + window_size]
+                feats = extract_features(chunk, np.mean(chunk), SAMPLE_RATE)
+                normal_feats.append(feats)
+            for start in range(0, len(raw_f) - window_size, window_size // 2):
+                chunk = raw_f[start:start + window_size]
+                feats = extract_features(chunk, np.mean(chunk), SAMPLE_RATE)
+                fault_feats.append(feats)
+
+        X_normal = np.array(normal_feats)
+        X_fault = np.array(fault_feats)
+        X_test = np.vstack([X_normal, X_fault])
+        y_test = np.array([0] * len(X_normal) + [1] * len(X_fault))
+
+        methods = {
+            'IsolationForest': IsolationForest(n_estimators=300, contamination=0.03, random_state=42),
+            'OC-SVM': OneClassSVM(kernel='rbf', nu=0.05, gamma='scale'),
+            'EllipticEnvelope': EllipticEnvelope(contamination=0.05, random_state=42),
+            'LOF': LocalOutlierFactor(n_neighbors=20, contamination=0.05, novelty=True),
+            'PCA (99% var)': None,
+            'Autoencoder (MLP)': None,
+        }
+
+        scaler = StandardScaler()
+        X_norm_s = scaler.fit_transform(X_normal)
+        X_test_s = scaler.transform(X_test)
+
+        for name in methods:
+            if name == 'IsolationForest':
+                methods[name].fit(X_norm_s)
+                scores = -methods[name].score_samples(X_test_s)
+                preds = methods[name].predict(X_test_s)
+                preds = np.where(preds == -1, 1, 0)
+            elif name == 'OC-SVM':
+                methods[name].fit(X_norm_s)
+                scores = -methods[name].score_samples(X_test_s)
+                preds = methods[name].predict(X_test_s)
+                preds = np.where(preds == -1, 1, 0)
+            elif name == 'EllipticEnvelope':
+                methods[name].fit(X_norm_s)
+                preds = methods[name].predict(X_test_s)
+                preds = np.where(preds == -1, 1, 0)
+            elif name == 'LOF':
+                methods[name].fit(X_norm_s)
+                preds = methods[name].predict(X_test_s)
+                preds = np.where(preds == -1, 1, 0)
+            elif name == 'PCA (99% var)':
+                pca = PCA(n_components=0.99, random_state=42)
+                pca.fit(X_norm_s)
+                X_recon = pca.inverse_transform(pca.transform(X_test_s))
+                errors = np.mean((X_test_s - X_recon) ** 2, axis=1)
+                threshold = np.percentile(errors, 95)
+                preds = (errors > threshold).astype(int)
+                scores = errors
+            elif name == 'Autoencoder (MLP)':
+                ae = MLPRegressor(hidden_layer_sizes=(16, 8, 16), activation='relu',
+                                   solver='adam', max_iter=500, random_state=42)
+                ae.fit(X_norm_s, X_norm_s)
+                recon = ae.predict(X_test_s)
+                errors = np.mean((X_test_s - recon) ** 2, axis=1)
+                threshold = np.percentile(errors, 95)
+                preds = (errors > threshold).astype(int)
+                scores = errors
+
+            acc = accuracy_score(y_test, preds)
+            prec = precision_score(y_test, preds, zero_division=0)
+            rec = recall_score(y_test, preds, zero_division=0)
+            f1 = f1_score(y_test, preds, zero_division=0)
+
+            all_results.append({
+                'fault_type': fault_name,
+                'method': name,
+                'accuracy': round(acc, 4),
+                'precision': round(prec, 4),
+                'recall': round(rec, 4),
+                'f1': round(f1, 4),
+            })
+
+            log.info(f"  {fault_name:15s} | {name:20s} | acc={acc:.4f} prec={prec:.4f} rec={rec:.4f} f1={f1:.4f}")
+
+    return {'anomaly_detection': all_results}
+
+
+# ═══════════════════════════════════════════════════════════════
 #  Report Generator
 # ═══════════════════════════════════════════════════════════════
 def generate_paper_table(results):
@@ -435,6 +656,45 @@ def generate_paper_table(results):
         lines.append(f"- Fine-tuned (+10% target): {tl['fine_tuned_accuracy']:.4f}")
         lines.append(f"- Delta: {tl['delta']:+.4f}")
 
+    if 'sota' in results:
+        lines.append("\n## 6. SoTA Classifier Comparison (10 methods)\n")
+        lines.append("| Method | overlap=0.0 | overlap=0.4 | overlap=1.0 | Avg Rank |")
+        lines.append("|--------|------------|------------|------------|----------|")
+        methods_order = ['LogisticRegression', 'KNN (k=5)', 'KNN (k=21)',
+                         'SVC (rbf)', 'DecisionTree', 'RandomForest',
+                         'ExtraTrees', 'GradientBoosting', 'MLP (64,32)',
+                         'MLP (128,64,32)', 'OC-SVM (1vsRest)', 'Ours (RF+IF+SVM)']
+        ranks = []
+        for m in methods_order:
+            vals = [r for r in results['sota'] if r['method'] == m]
+            accs = {r['overlap']: r['accuracy'] for r in vals}
+            a0 = accs.get(0.0, '-')
+            a4 = accs.get(0.4, '-')
+            a1 = accs.get(1.0, '-')
+            if all(v != '-' for v in [a0, a4, a1]):
+                rank = sum([a0, a4, a1]) / 3
+                ranks.append((m, rank))
+            lines.append(f"| {m} | {a0} | {a4} | {a1} | |")
+        if ranks:
+            ranks.sort(key=lambda x: -x[1])
+            lines.append(f"\n**Top-3 by average accuracy:** {', '.join(f'{m} ({r:.4f})' for m, r in ranks[:3])}")
+
+    if 'anomaly_detection' in results:
+        lines.append("\n## 7. Anomaly Detection Benchmark (6 methods)\n")
+        lines.append("| Method | Unbalanced F1 | Bearing F1 | Misalignment F1 | Avg F1 |")
+        lines.append("|--------|--------------|------------|-----------------|--------|")
+        ad = results['anomaly_detection']
+        ad_methods = ['IsolationForest', 'OC-SVM', 'EllipticEnvelope', 'LOF',
+                      'PCA (99% var)', 'Autoencoder (MLP)']
+        for m in ad_methods:
+            vals = [r for r in ad if r['method'] == m]
+            f1s = {r['fault_type']: r['f1'] for r in vals}
+            uf = f1s.get('unbalanced', '-')
+            bf = f1s.get('bearing', '-')
+            mf = f1s.get('misalignment', '-')
+            avg = round((uf + bf + mf) / 3, 4) if all(v != '-' for v in [uf, bf, mf]) else '-'
+            lines.append(f"| {m} | {uf} | {bf} | {mf} | {avg} |")
+
     return '\n'.join(lines)
 
 
@@ -468,6 +728,8 @@ def main():
     all_results.update(benchmark_ablation(n_samples=int(300 * multiplier)))
     all_results.update(benchmark_data_scaling(max_samples=spc))
     all_results.update(benchmark_transfer_learning())
+    all_results.update(benchmark_sota(samples_per_company=spc))
+    all_results.update(benchmark_anomaly_detection())
 
     elapsed = time.time() - t0
     all_results['meta'] = {

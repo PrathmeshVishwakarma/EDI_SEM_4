@@ -16,38 +16,38 @@
     },
     {
       "overlap": 0.4,
-      "accuracy_mean": 0.9806,
-      "accuracy_std": 0.0039,
-      "f1_mean": 0.9805,
-      "f1_std": 0.004
+      "accuracy_mean": 0.9778,
+      "accuracy_std": 0.0208,
+      "f1_mean": 0.9778,
+      "f1_std": 0.0208
     },
     {
       "overlap": 0.6,
-      "accuracy_mean": 0.9333,
-      "accuracy_std": 0.0136,
-      "f1_mean": 0.933,
-      "f1_std": 0.0137
+      "accuracy_mean": 0.9167,
+      "accuracy_std": 0.0491,
+      "f1_mean": 0.9167,
+      "f1_std": 0.0487
     },
     {
       "overlap": 0.8,
-      "accuracy_mean": 0.8083,
-      "accuracy_std": 0.018,
-      "f1_mean": 0.807,
-      "f1_std": 0.0177
+      "accuracy_mean": 0.7667,
+      "accuracy_std": 0.0943,
+      "f1_mean": 0.765,
+      "f1_std": 0.0976
     },
     {
       "overlap": 1.0,
-      "accuracy_mean": 0.4639,
-      "accuracy_std": 0.0502,
-      "f1_mean": 0.4446,
-      "f1_std": 0.0456
+      "accuracy_mean": 0.3944,
+      "accuracy_std": 0.055,
+      "f1_mean": 0.3822,
+      "f1_std": 0.0636
     }
   ],
   "confusion_matrices": {
     "0.0": {
       "matrix": [
         [
-          21,
+          12,
           0,
           0,
           0,
@@ -55,7 +55,7 @@
         ],
         [
           0,
-          22,
+          14,
           0,
           0,
           0
@@ -63,7 +63,7 @@
         [
           0,
           0,
-          21,
+          14,
           0,
           0
         ],
@@ -71,7 +71,7 @@
           0,
           0,
           0,
-          30,
+          11,
           0
         ],
         [
@@ -79,7 +79,7 @@
           0,
           0,
           0,
-          26
+          9
         ]
       ],
       "companies": [
@@ -93,7 +93,7 @@
     "0.2": {
       "matrix": [
         [
-          21,
+          12,
           0,
           0,
           0,
@@ -101,7 +101,7 @@
         ],
         [
           0,
-          22,
+          14,
           0,
           0,
           0
@@ -109,7 +109,7 @@
         [
           0,
           0,
-          21,
+          14,
           0,
           0
         ],
@@ -117,7 +117,7 @@
           0,
           0,
           0,
-          30,
+          11,
           0
         ],
         [
@@ -125,7 +125,7 @@
           0,
           0,
           0,
-          26
+          9
         ]
       ],
       "companies": [
@@ -139,7 +139,7 @@
     "0.4": {
       "matrix": [
         [
-          21,
+          12,
           0,
           0,
           0,
@@ -147,7 +147,7 @@
         ],
         [
           0,
-          22,
+          14,
           0,
           0,
           0
@@ -155,7 +155,7 @@
         [
           0,
           0,
-          21,
+          14,
           0,
           0
         ],
@@ -163,15 +163,15 @@
           0,
           0,
           0,
-          30,
+          11,
           0
         ],
         [
           0,
           0,
           0,
-          3,
-          23
+          0,
+          9
         ]
       ],
       "companies": [
@@ -185,23 +185,23 @@
     "0.6": {
       "matrix": [
         [
-          21,
-          0,
-          0,
-          0,
-          0
-        ],
-        [
-          1,
-          21,
+          10,
+          2,
           0,
           0,
           0
         ],
         [
           0,
-          1,
-          20,
+          14,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          14,
           0,
           0
         ],
@@ -209,15 +209,15 @@
           0,
           0,
           0,
-          24,
-          6
+          9,
+          2
         ],
         [
           0,
           0,
           0,
           0,
-          26
+          9
         ]
       ],
       "companies": [
@@ -231,39 +231,39 @@
     "0.8": {
       "matrix": [
         [
-          20,
-          1,
-          0,
-          0,
-          0
-        ],
-        [
-          4,
-          14,
-          3,
-          1,
-          0
-        ],
-        [
+          10,
           2,
           0,
-          18,
+          0,
+          0
+        ],
+        [
           1,
+          13,
+          0,
+          0,
           0
         ],
         [
           0,
           0,
-          1,
-          22,
-          7
+          10,
+          3,
+          1
         ],
         [
           0,
           0,
-          3,
-          2,
-          21
+          0,
+          8,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          9
         ]
       ],
       "companies": [
@@ -277,39 +277,39 @@
     "1.0": {
       "matrix": [
         [
-          18,
+          9,
           0,
           1,
-          1,
-          1
-        ],
-        [
-          1,
-          15,
-          2,
-          2,
+          0,
           2
         ],
         [
-          4,
+          2,
+          3,
+          2,
           1,
-          13,
+          6
+        ],
+        [
+          2,
           0,
-          3
-        ],
-        [
-          2,
           7,
-          4,
-          14,
-          3
-        ],
-        [
-          7,
-          6,
-          7,
-          2,
+          1,
           4
+        ],
+        [
+          0,
+          1,
+          3,
+          7,
+          0
+        ],
+        [
+          2,
+          1,
+          4,
+          0,
+          2
         ]
       ],
       "companies": [
@@ -325,8 +325,8 @@
     {
       "overlap": 0.0,
       "method": "rms_threshold",
-      "accuracy": 0.2583,
-      "f1": 0.1102
+      "accuracy": 0.1667,
+      "f1": 0.0498
     },
     {
       "overlap": 0.0,
@@ -337,8 +337,8 @@
     {
       "overlap": 0.0,
       "method": "ocsvm_only",
-      "accuracy": 0.7667,
-      "f1": 0.6942
+      "accuracy": 0.75,
+      "f1": 0.6627
     },
     {
       "overlap": 0.0,
@@ -349,8 +349,8 @@
     {
       "overlap": 0.2,
       "method": "rms_threshold",
-      "accuracy": 0.2667,
-      "f1": 0.1363
+      "accuracy": 0.1833,
+      "f1": 0.0782
     },
     {
       "overlap": 0.2,
@@ -361,8 +361,8 @@
     {
       "overlap": 0.2,
       "method": "ocsvm_only",
-      "accuracy": 0.7667,
-      "f1": 0.7408
+      "accuracy": 0.7833,
+      "f1": 0.7356
     },
     {
       "overlap": 0.2,
@@ -373,129 +373,129 @@
     {
       "overlap": 0.4,
       "method": "rms_threshold",
-      "accuracy": 0.2667,
-      "f1": 0.1269
+      "accuracy": 0.15,
+      "f1": 0.0441
     },
     {
       "overlap": 0.4,
       "method": "random_forest",
       "accuracy": 0.9667,
-      "f1": 0.9664
+      "f1": 0.9661
     },
     {
       "overlap": 0.4,
       "method": "ocsvm_only",
-      "accuracy": 0.75,
-      "f1": 0.7252
+      "accuracy": 0.7333,
+      "f1": 0.6628
     },
     {
       "overlap": 0.4,
       "method": "full_ensemble",
-      "accuracy": 0.9833,
-      "f1": 0.9833
+      "accuracy": 0.9667,
+      "f1": 0.9668
     },
     {
       "overlap": 0.6,
       "method": "rms_threshold",
-      "accuracy": 0.2667,
-      "f1": 0.1138
+      "accuracy": 0.1667,
+      "f1": 0.049
     },
     {
       "overlap": 0.6,
       "method": "random_forest",
       "accuracy": 0.9333,
-      "f1": 0.9339
+      "f1": 0.9335
     },
     {
       "overlap": 0.6,
       "method": "ocsvm_only",
-      "accuracy": 0.6417,
-      "f1": 0.6197
+      "accuracy": 0.6667,
+      "f1": 0.6021
     },
     {
       "overlap": 0.6,
       "method": "full_ensemble",
-      "accuracy": 0.9333,
-      "f1": 0.9323
+      "accuracy": 0.8667,
+      "f1": 0.8673
     },
     {
       "overlap": 0.8,
       "method": "rms_threshold",
-      "accuracy": 0.275,
-      "f1": 0.1403
+      "accuracy": 0.1667,
+      "f1": 0.049
     },
     {
       "overlap": 0.8,
       "method": "random_forest",
-      "accuracy": 0.9167,
-      "f1": 0.917
+      "accuracy": 0.7333,
+      "f1": 0.7346
     },
     {
       "overlap": 0.8,
       "method": "ocsvm_only",
-      "accuracy": 0.4,
-      "f1": 0.3673
+      "accuracy": 0.4667,
+      "f1": 0.3886
     },
     {
       "overlap": 0.8,
       "method": "full_ensemble",
-      "accuracy": 0.8417,
-      "f1": 0.8444
+      "accuracy": 0.6667,
+      "f1": 0.6656
     },
     {
       "overlap": 1.0,
       "method": "rms_threshold",
-      "accuracy": 0.2583,
-      "f1": 0.1102
+      "accuracy": 0.1833,
+      "f1": 0.0794
     },
     {
       "overlap": 1.0,
       "method": "random_forest",
-      "accuracy": 0.4417,
-      "f1": 0.4304
+      "accuracy": 0.5,
+      "f1": 0.5028
     },
     {
       "overlap": 1.0,
       "method": "ocsvm_only",
-      "accuracy": 0.1417,
-      "f1": 0.0352
+      "accuracy": 0.15,
+      "f1": 0.0667
     },
     {
       "overlap": 1.0,
       "method": "full_ensemble",
-      "accuracy": 0.4333,
-      "f1": 0.4157
+      "accuracy": 0.3833,
+      "f1": 0.3824
     }
   ],
   "ablation": {
-    "base_accuracy": 0.9778,
+    "base_accuracy": 0.9889,
     "importance": {
       "RMS": 0.0,
       "Peak-to-Peak": 0.0,
       "Variance": 0.0,
-      "Skewness": 0.0994,
+      "Skewness": 0.1267,
       "Kurtosis": 0.0,
       "Crest Factor": 0.0,
-      "Shape Factor": 0.0006,
-      "Zero-Crossing Rate": 0.0033,
-      "Spectral Band 1": 0.0033,
+      "Shape Factor": 0.0,
+      "Zero-Crossing Rate": 0.0,
+      "Spectral Band 1": 0.0,
       "Spectral Band 2": 0.0,
       "Spectral Band 3": 0.0,
       "Spectral Band 4": 0.0,
-      "Spectral Band 5": -0.0033,
-      "Spectral Band 6": 0.0028,
-      "Spectral Band 7": 0.0044,
-      "Spectral Band 8": 0.0239,
+      "Spectral Band 5": 0.0,
+      "Spectral Band 6": 0.0,
+      "Spectral Band 7": 0.0,
+      "Spectral Band 8": -0.0111,
       "Spectral Band 9": 0.0,
       "Spectral Band 10": 0.0,
-      "Dominant Freq": 0.0039,
+      "Dominant Freq": 0.0,
       "Centroid": 0.0,
       "Spread": 0.0,
       "Flatness": 0.0,
-      "Low Energy": 0.0006,
-      "Mid Energy": 0.0022,
-      "High Energy": 0.0033,
-      "Peak Freq 1": 0.0,
+      "Low Energy": 0.0,
+      "Mid Energy": 0.0,
+      "High Energy": 0.0,
+      "Peak Freq 1": -0.0111,
       "Peak Freq 2": 0.0,
       "Peak Freq 3": 0.0
     },
@@ -503,78 +503,78 @@
       "RMS": 0.0,
       "Peak-to-Peak": 0.0,
       "Variance": 0.0,
-      "Skewness": 0.0128,
+      "Skewness": 0.0264,
       "Kurtosis": 0.0,
       "Crest Factor": 0.0,
-      "Shape Factor": 0.0039,
-      "Zero-Crossing Rate": 0.0044,
-      "Spectral Band 1": 0.0027,
+      "Shape Factor": 0.0,
+      "Zero-Crossing Rate": 0.0,
+      "Spectral Band 1": 0.0,
       "Spectral Band 2": 0.0,
       "Spectral Band 3": 0.0,
       "Spectral Band 4": 0.0,
-      "Spectral Band 5": 0.0027,
-      "Spectral Band 6": 0.0028,
-      "Spectral Band 7": 0.0022,
-      "Spectral Band 8": 0.0061,
+      "Spectral Band 5": 0.0,
+      "Spectral Band 6": 0.0,
+      "Spectral Band 7": 0.0,
+      "Spectral Band 8": 0.0,
       "Spectral Band 9": 0.0,
       "Spectral Band 10": 0.0,
-      "Dominant Freq": 0.0056,
+      "Dominant Freq": 0.0,
       "Centroid": 0.0,
       "Spread": 0.0,
       "Flatness": 0.0,
-      "Low Energy": 0.0017,
-      "Mid Energy": 0.0027,
-      "High Energy": 0.0037,
-      "Peak Freq 1": 0.0043,
+      "Low Energy": 0.0,
+      "Mid Energy": 0.0,
+      "High Energy": 0.0,
+      "Peak Freq 1": 0.0,
       "Peak Freq 2": 0.0,
       "Peak Freq 3": 0.0
     },
     "top_10": [
       {
         "feature": "Skewness",
-        "importance": 0.0994
+        "importance": 0.1267
       },
       {
-        "feature": "Spectral Band 8",
-        "importance": 0.0239
+        "feature": "Peak Freq 3",
+        "importance": 0.0
       },
       {
-        "feature": "Spectral Band 7",
-        "importance": 0.0044
+        "feature": "Peak Freq 2",
+        "importance": 0.0
       },
       {
-        "feature": "Dominant Freq",
-        "importance": 0.0039
+        "feature": "Peak-to-Peak",
+        "importance": 0.0
       },
       {
-        "feature": "Spectral Band 1",
-        "importance": 0.0033
+        "feature": "Variance",
+        "importance": 0.0
       },
       {
-        "feature": "High Energy",
-        "importance": 0.0033
+        "feature": "Kurtosis",
+        "importance": 0.0
       },
       {
-        "feature": "Zero-Crossing Rate",
-        "importance": 0.0033
-      },
-      {
-        "feature": "Spectral Band 6",
-        "importance": 0.0028
-      },
-      {
-        "feature": "Mid Energy",
-        "importance": 0.0022
+        "feature": "Crest Factor",
+        "importance": 0.0
       },
       {
         "feature": "Shape Factor",
-        "importance": 0.0006
+        "importance": 0.0
+      },
+      {
+        "feature": "Zero-Crossing Rate",
+        "importance": 0.0
+      },
+      {
+        "feature": "Spectral Band 1",
+        "importance": 0.0
       }
     ],
     "group_importance": {
-      "Time Domain (0-7)": 0.1033,
-      "Spectral Bands (8-17)": 0.0311,
-      "Frequency Stats (18-27)": 0.01
+      "Time Domain (0-7)": 0.1267,
+      "Spectral Bands (8-17)": -0.0111,
+      "Frequency Stats (18-27)": -0.0111
     }
   },
   "data_scaling": [
@@ -618,9 +618,589 @@
     "n_fine_tune": 16,
     "status": "completed"
   },
+  "sota": [
+    {
+      "overlap": 0.0,
+      "method": "LogisticRegression",
+      "accuracy": 0.9833,
+      "f1": 0.9834
+    },
+    {
+      "overlap": 0.0,
+      "method": "KNN (k=5)",
+      "accuracy": 1.0,
+      "f1": 1.0
+    },
+    {
+      "overlap": 0.0,
+      "method": "KNN (k=21)",
+      "accuracy": 1.0,
+      "f1": 1.0
+    },
+    {
+      "overlap": 0.0,
+      "method": "SVC (rbf)",
+      "accuracy": 1.0,
+      "f1": 1.0
+    },
+    {
+      "overlap": 0.0,
+      "method": "DecisionTree",
+      "accuracy": 0.9833,
+      "f1": 0.9834
+    },
+    {
+      "overlap": 0.0,
+      "method": "RandomForest",
+      "accuracy": 1.0,
+      "f1": 1.0
+    },
+    {
+      "overlap": 0.0,
+      "method": "ExtraTrees",
+      "accuracy": 1.0,
+      "f1": 1.0
+    },
+    {
+      "overlap": 0.0,
+      "method": "GradientBoosting",
+      "accuracy": 0.9833,
+      "f1": 0.9834
+    },
+    {
+      "overlap": 0.0,
+      "method": "MLP (64,32)",
+      "accuracy": 1.0,
+      "f1": 1.0
+    },
+    {
+      "overlap": 0.0,
+      "method": "MLP (128,64,32)",
+      "accuracy": 1.0,
+      "f1": 1.0
+    },
+    {
+      "overlap": 0.0,
+      "method": "Ours (RF+IF+SVM)",
+      "accuracy": 1.0,
+      "f1": 1.0
+    },
+    {
+      "overlap": 0.0,
+      "method": "OC-SVM (1vsRest)",
+      "accuracy": 0.1667,
+      "f1": 0.0476
+    },
+    {
+      "overlap": 0.2,
+      "method": "LogisticRegression",
+      "accuracy": 0.9833,
+      "f1": 0.9834
+    },
+    {
+      "overlap": 0.2,
+      "method": "KNN (k=5)",
+      "accuracy": 0.9833,
+      "f1": 0.9834
+    },
+    {
+      "overlap": 0.2,
+      "method": "KNN (k=21)",
+      "accuracy": 0.95,
+      "f1": 0.9501
+    },
+    {
+      "overlap": 0.2,
+      "method": "SVC (rbf)",
+      "accuracy": 0.9833,
+      "f1": 0.9834
+    },
+    {
+      "overlap": 0.2,
+      "method": "DecisionTree",
+      "accuracy": 1.0,
+      "f1": 1.0
+    },
+    {
+      "overlap": 0.2,
+      "method": "RandomForest",
+      "accuracy": 1.0,
+      "f1": 1.0
+    },
+    {
+      "overlap": 0.2,
+      "method": "ExtraTrees",
+      "accuracy": 1.0,
+      "f1": 1.0
+    },
+    {
+      "overlap": 0.2,
+      "method": "GradientBoosting",
+      "accuracy": 1.0,
+      "f1": 1.0
+    },
+    {
+      "overlap": 0.2,
+      "method": "MLP (64,32)",
+      "accuracy": 0.9667,
+      "f1": 0.9667
+    },
+    {
+      "overlap": 0.2,
+      "method": "MLP (128,64,32)",
+      "accuracy": 0.9667,
+      "f1": 0.9667
+    },
+    {
+      "overlap": 0.2,
+      "method": "Ours (RF+IF+SVM)",
+      "accuracy": 1.0,
+      "f1": 1.0
+    },
+    {
+      "overlap": 0.2,
+      "method": "OC-SVM (1vsRest)",
+      "accuracy": 0.1667,
+      "f1": 0.0476
+    },
+    {
+      "overlap": 0.4,
+      "method": "LogisticRegression",
+      "accuracy": 0.9833,
+      "f1": 0.9834
+    },
+    {
+      "overlap": 0.4,
+      "method": "KNN (k=5)",
+      "accuracy": 0.9667,
+      "f1": 0.9667
+    },
+    {
+      "overlap": 0.4,
+      "method": "KNN (k=21)",
+      "accuracy": 0.9167,
+      "f1": 0.9147
+    },
+    {
+      "overlap": 0.4,
+      "method": "SVC (rbf)",
+      "accuracy": 0.9833,
+      "f1": 0.9834
+    },
+    {
+      "overlap": 0.4,
+      "method": "DecisionTree",
+      "accuracy": 0.9667,
+      "f1": 0.9668
+    },
+    {
+      "overlap": 0.4,
+      "method": "RandomForest",
+      "accuracy": 0.9667,
+      "f1": 0.9661
+    },
+    {
+      "overlap": 0.4,
+      "method": "ExtraTrees",
+      "accuracy": 0.9833,
+      "f1": 0.9834
+    },
+    {
+      "overlap": 0.4,
+      "method": "GradientBoosting",
+      "accuracy": 0.9333,
+      "f1": 0.9334
+    },
+    {
+      "overlap": 0.4,
+      "method": "MLP (64,32)",
+      "accuracy": 0.9833,
+      "f1": 0.9834
+    },
+    {
+      "overlap": 0.4,
+      "method": "MLP (128,64,32)",
+      "accuracy": 0.9833,
+      "f1": 0.9834
+    },
+    {
+      "overlap": 0.4,
+      "method": "Ours (RF+IF+SVM)",
+      "accuracy": 0.9667,
+      "f1": 0.9668
+    },
+    {
+      "overlap": 0.4,
+      "method": "OC-SVM (1vsRest)",
+      "accuracy": 0.1667,
+      "f1": 0.0476
+    },
+    {
+      "overlap": 0.6,
+      "method": "LogisticRegression",
+      "accuracy": 0.9333,
+      "f1": 0.9329
+    },
+    {
+      "overlap": 0.6,
+      "method": "KNN (k=5)",
+      "accuracy": 0.7667,
+      "f1": 0.7622
+    },
+    {
+      "overlap": 0.6,
+      "method": "KNN (k=21)",
+      "accuracy": 0.7667,
+      "f1": 0.7648
+    },
+    {
+      "overlap": 0.6,
+      "method": "SVC (rbf)",
+      "accuracy": 0.8667,
+      "f1": 0.865
+    },
+    {
+      "overlap": 0.6,
+      "method": "DecisionTree",
+      "accuracy": 0.9167,
+      "f1": 0.9166
+    },
+    {
+      "overlap": 0.6,
+      "method": "RandomForest",
+      "accuracy": 0.9333,
+      "f1": 0.9335
+    },
+    {
+      "overlap": 0.6,
+      "method": "ExtraTrees",
+      "accuracy": 0.9,
+      "f1": 0.8999
+    },
+    {
+      "overlap": 0.6,
+      "method": "GradientBoosting",
+      "accuracy": 0.9,
+      "f1": 0.8988
+    },
+    {
+      "overlap": 0.6,
+      "method": "MLP (64,32)",
+      "accuracy": 0.9167,
+      "f1": 0.9167
+    },
+    {
+      "overlap": 0.6,
+      "method": "MLP (128,64,32)",
+      "accuracy": 0.8833,
+      "f1": 0.8824
+    },
+    {
+      "overlap": 0.6,
+      "method": "Ours (RF+IF+SVM)",
+      "accuracy": 0.8667,
+      "f1": 0.8673
+    },
+    {
+      "overlap": 0.6,
+      "method": "OC-SVM (1vsRest)",
+      "accuracy": 0.1667,
+      "f1": 0.0476
+    },
+    {
+      "overlap": 0.8,
+      "method": "LogisticRegression",
+      "accuracy": 0.75,
+      "f1": 0.7505
+    },
+    {
+      "overlap": 0.8,
+      "method": "KNN (k=5)",
+      "accuracy": 0.5833,
+      "f1": 0.5721
+    },
+    {
+      "overlap": 0.8,
+      "method": "KNN (k=21)",
+      "accuracy": 0.65,
+      "f1": 0.6496
+    },
+    {
+      "overlap": 0.8,
+      "method": "SVC (rbf)",
+      "accuracy": 0.65,
+      "f1": 0.644
+    },
+    {
+      "overlap": 0.8,
+      "method": "DecisionTree",
+      "accuracy": 0.6333,
+      "f1": 0.6396
+    },
+    {
+      "overlap": 0.8,
+      "method": "RandomForest",
+      "accuracy": 0.7333,
+      "f1": 0.7346
+    },
+    {
+      "overlap": 0.8,
+      "method": "ExtraTrees",
+      "accuracy": 0.7667,
+      "f1": 0.7635
+    },
+    {
+      "overlap": 0.8,
+      "method": "GradientBoosting",
+      "accuracy": 0.7333,
+      "f1": 0.73
+    },
+    {
+      "overlap": 0.8,
+      "method": "MLP (64,32)",
+      "accuracy": 0.7833,
+      "f1": 0.7868
+    },
+    {
+      "overlap": 0.8,
+      "method": "MLP (128,64,32)",
+      "accuracy": 0.7667,
+      "f1": 0.7704
+    },
+    {
+      "overlap": 0.8,
+      "method": "Ours (RF+IF+SVM)",
+      "accuracy": 0.6667,
+      "f1": 0.6656
+    },
+    {
+      "overlap": 0.8,
+      "method": "OC-SVM (1vsRest)",
+      "accuracy": 0.1667,
+      "f1": 0.0476
+    },
+    {
+      "overlap": 1.0,
+      "method": "LogisticRegression",
+      "accuracy": 0.3833,
+      "f1": 0.3588
+    },
+    {
+      "overlap": 1.0,
+      "method": "KNN (k=5)",
+      "accuracy": 0.3,
+      "f1": 0.2617
+    },
+    {
+      "overlap": 1.0,
+      "method": "KNN (k=21)",
+      "accuracy": 0.3667,
+      "f1": 0.3417
+    },
+    {
+      "overlap": 1.0,
+      "method": "SVC (rbf)",
+      "accuracy": 0.4167,
+      "f1": 0.4117
+    },
+    {
+      "overlap": 1.0,
+      "method": "DecisionTree",
+      "accuracy": 0.5167,
+      "f1": 0.5165
+    },
+    {
+      "overlap": 1.0,
+      "method": "RandomForest",
+      "accuracy": 0.5,
+      "f1": 0.5028
+    },
+    {
+      "overlap": 1.0,
+      "method": "ExtraTrees",
+      "accuracy": 0.3667,
+      "f1": 0.3458
+    },
+    {
+      "overlap": 1.0,
+      "method": "GradientBoosting",
+      "accuracy": 0.3833,
+      "f1": 0.3754
+    },
+    {
+      "overlap": 1.0,
+      "method": "MLP (64,32)",
+      "accuracy": 0.3667,
+      "f1": 0.3597
+    },
+    {
+      "overlap": 1.0,
+      "method": "MLP (128,64,32)",
+      "accuracy": 0.3667,
+      "f1": 0.349
+    },
+    {
+      "overlap": 1.0,
+      "method": "Ours (RF+IF+SVM)",
+      "accuracy": 0.3833,
+      "f1": 0.3824
+    },
+    {
+      "overlap": 1.0,
+      "method": "OC-SVM (1vsRest)",
+      "accuracy": 0.1667,
+      "f1": 0.0476
+    }
+  ],
+  "anomaly_detection": [
+    {
+      "fault_type": "unbalanced",
+      "method": "IsolationForest",
+      "accuracy": 0.9833,
+      "precision": 0.9677,
+      "recall": 1.0,
+      "f1": 0.9836
+    },
+    {
+      "fault_type": "unbalanced",
+      "method": "OC-SVM",
+      "accuracy": 0.9208,
+      "precision": 0.8633,
+      "recall": 1.0,
+      "f1": 0.9266
+    },
+    {
+      "fault_type": "unbalanced",
+      "method": "EllipticEnvelope",
+      "accuracy": 0.975,
+      "precision": 0.9524,
+      "recall": 1.0,
+      "f1": 0.9756
+    },
+    {
+      "fault_type": "unbalanced",
+      "method": "LOF",
+      "accuracy": 0.975,
+      "precision": 0.9524,
+      "recall": 1.0,
+      "f1": 0.9756
+    },
+    {
+      "fault_type": "unbalanced",
+      "method": "PCA (99% var)",
+      "accuracy": 0.55,
+      "precision": 1.0,
+      "recall": 0.1,
+      "f1": 0.1818
+    },
+    {
+      "fault_type": "unbalanced",
+      "method": "Autoencoder (MLP)",
+      "accuracy": 0.55,
+      "precision": 1.0,
+      "recall": 0.1,
+      "f1": 0.1818
+    },
+    {
+      "fault_type": "bearing",
+      "method": "IsolationForest",
+      "accuracy": 0.9833,
+      "precision": 0.9677,
+      "recall": 1.0,
+      "f1": 0.9836
+    },
+    {
+      "fault_type": "bearing",
+      "method": "OC-SVM",
+      "accuracy": 0.9208,
+      "precision": 0.8633,
+      "recall": 1.0,
+      "f1": 0.9266
+    },
+    {
+      "fault_type": "bearing",
+      "method": "EllipticEnvelope",
+      "accuracy": 0.975,
+      "precision": 0.9524,
+      "recall": 1.0,
+      "f1": 0.9756
+    },
+    {
+      "fault_type": "bearing",
+      "method": "LOF",
+      "accuracy": 0.975,
+      "precision": 0.9524,
+      "recall": 1.0,
+      "f1": 0.9756
+    },
+    {
+      "fault_type": "bearing",
+      "method": "PCA (99% var)",
+      "accuracy": 0.55,
+      "precision": 1.0,
+      "recall": 0.1,
+      "f1": 0.1818
+    },
+    {
+      "fault_type": "bearing",
+      "method": "Autoencoder (MLP)",
+      "accuracy": 0.55,
+      "precision": 1.0,
+      "recall": 0.1,
+      "f1": 0.1818
+    },
+    {
+      "fault_type": "misalignment",
+      "method": "IsolationForest",
+      "accuracy": 0.9833,
+      "precision": 0.9677,
+      "recall": 1.0,
+      "f1": 0.9836
+    },
+    {
+      "fault_type": "misalignment",
+      "method": "OC-SVM",
+      "accuracy": 0.9167,
+      "precision": 0.8571,
+      "recall": 1.0,
+      "f1": 0.9231
+    },
+    {
+      "fault_type": "misalignment",
+      "method": "EllipticEnvelope",
+      "accuracy": 0.975,
+      "precision": 0.9524,
+      "recall": 1.0,
+      "f1": 0.9756
+    },
+    {
+      "fault_type": "misalignment",
+      "method": "LOF",
+      "accuracy": 0.975,
+      "precision": 0.9524,
+      "recall": 1.0,
+      "f1": 0.9756
+    },
+    {
+      "fault_type": "misalignment",
+      "method": "PCA (99% var)",
+      "accuracy": 0.55,
+      "precision": 1.0,
+      "recall": 0.1,
+      "f1": 0.1818
+    },
+    {
+      "fault_type": "misalignment",
+      "method": "Autoencoder (MLP)",
+      "accuracy": 0.55,
+      "precision": 1.0,
+      "recall": 0.1,
+      "f1": 0.1818
+    }
+  ],
   "meta": {
-    "elapsed_sec": 40.1,
-    "quick_mode": false,
+    "elapsed_sec": 38.9,
+    "quick_mode": true,
     "feature_dim": 28,
     "n_companies": 5
   }

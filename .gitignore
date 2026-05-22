@@ -37,6 +37,13 @@ env/
 # ── Project scope ──
 # All project logic is in motor_analyzer/ — the root holds only config
 
+# ── Analysis docs (generated, not part of PR) ──
+motor_analyzer/BENCHMARK_DEEP_DIVE.md
+motor_analyzer/END_SEM_REPORT.md
+motor_analyzer/ML_TECHNICAL_DEEP_DIVE.md
+motor_analyzer/OVERLAP_FIX_ANALYSIS.md
+motor_analyzer/PROJECT_COMPONENT_ANALYSIS.md
+
 # ── Data & Model Artifacts ──
 *.pkl
 *.pth
